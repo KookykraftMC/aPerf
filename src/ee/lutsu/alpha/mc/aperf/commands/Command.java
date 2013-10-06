@@ -6,9 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
     String name();
+
     String syntax();
+
     String description();
+
     String permission() default "";
+
     boolean isPrimary() default false;
+
     boolean isPlayerOnly() default false;
 }
