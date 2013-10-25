@@ -51,7 +51,9 @@ public class Module extends BaseCommand {
         } else if (module.getName() == "PacketLimiter") {
             try {
                 net.minecraft.network.TcpConnection.class.getMethod("getPacketHandlers");
-            } catch (NoSuchMethodException | SecurityException e) {
+            } catch (NoSuchMethodException e) {
+                msg(sender, "Packet Limiter is disabled. Please tell your server admin.", ChatColor.RED);
+            } catch (SecurityException e){
                 msg(sender, "Packet Limiter is disabled. Please tell your server admin.", ChatColor.RED);
             }
         } else {

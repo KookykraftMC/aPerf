@@ -230,7 +230,7 @@ public class CommandsManager {
                 }
             }
 
-            return ForgePerms.getPermissionsHandler().canAccess(player.username, player.worldObj.provider.getDimensionName(), permission);
+            return ForgePerms.getPermissionManager().canAccess(player.username, player.worldObj.provider.getDimensionName(), permission);
         }
 
         public void call(Object... args) throws Exception {

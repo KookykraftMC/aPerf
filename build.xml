@@ -17,7 +17,7 @@
 
 	<target name="prep">
 		<copy todir="${mcp}/src/minecraft">
-			<fileset dir="../forgeperms/src" />
+			<fileset dir="../ForgePerms-1.5.2/src" />
 			<fileset dir="${src}" />
 		</copy>
 	</target>

@@ -36,7 +36,7 @@ public class Help extends BaseCommand {
         msg(sender, "%saPerf commands. Page %s%s %sof %s%s", ChatColor.DARK_GREEN, ChatColor.DARK_PURPLE, page, ChatColor.DARK_GREEN, ChatColor.DARK_PURPLE, pages);
         msg(sender, "%s----------------------------------", ChatColor.GRAY);
 
-        boolean showPerm = sender instanceof EntityPlayer ? ForgePerms.getPermissionsHandler().canAccess(((EntityPlayer) sender).username, ((EntityPlayer) sender).worldObj.provider.getDimensionName(), "aperf.show.cmd.perm") : true;
+        boolean showPerm = sender instanceof EntityPlayer ? ForgePerms.getPermissionManager().canAccess(((EntityPlayer) sender).username, ((EntityPlayer) sender).worldObj.provider.getDimensionName(), "aperf.show.cmd.perm") : true;
 
         int i = 0;
         for (CommandBinding cmd : commands) {
@@ -70,7 +70,7 @@ public class Help extends BaseCommand {
             if (desc.isPlayerOnly() && !(user instanceof EntityPlayer)) {
                 continue;
             }
-            if (user instanceof EntityPlayer && !ForgePerms.getPermissionsHandler().canAccess(((EntityPlayer) user).username, ((EntityPlayer) user).worldObj.provider.getDimensionName(), desc.permission())) {
+            if (user instanceof EntityPlayer && !ForgePerms.getPermissionManager().canAccess(((EntityPlayer) user).username, ((EntityPlayer) user).worldObj.provider.getDimensionName(), desc.permission())) {
                 continue;
             }
 
