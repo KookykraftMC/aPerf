@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.packet.IPacketHandler;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -22,6 +21,7 @@ import net.minecraftforge.common.ConfigCategory;
 import net.minecraftforge.common.Property;
 import net.minecraftforge.common.Property.Type;
 import cpw.mods.fml.common.registry.GameRegistry;
+import ee.lutsu.alpha.mc.aperf.IPacketHandler;
 import ee.lutsu.alpha.mc.aperf.Log;
 import ee.lutsu.alpha.mc.aperf.aPerf;
 import ee.lutsu.alpha.mc.aperf.sys.ModuleBase;

@@ -24,7 +24,7 @@ import ee.lutsu.alpha.mc.aperf.sys.entity.SpawnLimiterModule;
 import ee.lutsu.alpha.mc.aperf.sys.packet.PacketManagerModule;
 import ee.lutsu.alpha.mc.aperf.sys.tile.TileEntityModule;
 
-@Mod(modid = "aPerf", name = "aPerf", version = "1.5.0.0")
+@Mod(modid = "aPerf", name = "aPerf", version = "@VERSION@.@BUILD_NUMBER@")
 @NetworkMod(clientSideRequired = false, serverSideRequired = true)
 public class aPerf {
     public static String MOD_NAME = "aPerf";
