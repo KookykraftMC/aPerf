@@ -1,0 +1,22 @@
+[
+{
+  "modid": "aPerf",
+  "name": "aPerf",
+  "description": "Performance tools collection",
+  "version": "@VERSION@.@BUILD_NUMBER@",
+  "mcversion": "1.6.1",
+  "url": "http://www.minecraftforum.net/topic/1889473-",
+  "updateUrl": "",
+  "authors": [
+  	"Legobear154",
+    "AlphAest"
+  ],
+  "credits": "Copyright (c) 2012,2013 AlphAest",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "requiredMods": [ "Forge" ],
+  "useDependencyInformation": "true"
+}
+]
