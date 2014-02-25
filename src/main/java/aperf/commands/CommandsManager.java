@@ -10,15 +10,16 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import aperf.aPerf;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.google.common.base.Joiner;
-import com.sperion.forgeperms.ForgePerms;
 
 import aperf.ChatColor;
 import aperf.Log;
+import net.minecraft.util.ChatMessageComponent;
 
 public class CommandsManager {
     protected Map<String, Map<CommandSyntax, CommandBinding>> listeners = new LinkedHashMap<String, Map<CommandSyntax, CommandBinding>>();
@@ -87,7 +88,7 @@ public class CommandsManager {
 
         if (selectedBinding == null) // there is fitting handler
         {
-            sender.sendChatToPlayer(ChatColor.RED + "Error in command syntax. Check command help.");
+            sender.sendChatToPlayer(ChatMessageComponent.createFromText(ChatColor.RED + "Error in command syntax. Check command help."));
             return true;
         }
 
@@ -97,7 +98,7 @@ public class CommandsManager {
         {
             if (!selectedBinding.checkPermissions((EntityPlayer) sender)) {
                 Log.warning("User §4" + ((EntityPlayer) sender).username + " §etried to access chat command \"" + command.getCommandName() + " " + arguments + "\", but §4doesn't have permission §eto do this.");
-                sender.sendChatToPlayer(ChatColor.RED + "Sorry, you don't have enough permissions.");
+                sender.sendChatToPlayer(ChatMessageComponent.createFromText(ChatColor.RED + "Sorry, you don't have enough permissions."));
                 return true;
             }
         }
@@ -110,10 +111,10 @@ public class CommandsManager {
             }
 
             if (e instanceof CommandException) {
-                sender.sendChatToPlayer(ChatColor.RED + "Command error: " + e.getMessage());
+                sender.sendChatToPlayer(ChatMessageComponent.createFromText(ChatColor.RED + "Command error: " + e.getMessage()));
             } else {
                 Log.severe("There is bogus command handler for " + command.getCommandName() + " command.", e);
-                sender.sendChatToPlayer(ChatColor.RED + "Command exception: " + e.getClass().getSimpleName() + " " + (e.getMessage() == null ? "" : e.getMessage()));
+                sender.sendChatToPlayer(ChatMessageComponent.createFromText(ChatColor.RED + "Command exception: " + e.getClass().getSimpleName() + " " + (e.getMessage() == null ? "" : e.getMessage())));
             }
         }
 
@@ -230,7 +231,7 @@ public class CommandsManager {
                 }
             }
 
-            return ForgePerms.getPermissionManager().canAccess(player.username, player.worldObj.provider.getDimensionName(), permission);
+            return aPerf.instance.permManager.canAccess(player.username, player.worldObj.provider.getDimensionName(), permission);
         }
 
         public void call(Object... args) throws Exception {

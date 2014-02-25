@@ -7,8 +7,6 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-import com.sperion.forgeperms.ForgePerms;
-
 import aperf.aPerf;
 
 public class CmdPerf extends CommandBase {
@@ -21,7 +19,7 @@ public class CmdPerf extends CommandBase {
     public boolean canCommandSenderUseCommand(ICommandSender cs) {
         if (cs instanceof EntityPlayerMP) {
             EntityPlayerMP p = (EntityPlayerMP) cs;
-            return ForgePerms.getPermissionManager().canAccess(p.username, p.worldObj.provider.getDimensionName(), "aperf.cmd");
+            return aPerf.instance.permManager.canAccess(p.username, p.worldObj.provider.getDimensionName(), "aperf.cmd");
         }
         return false;
     }
@@ -45,5 +43,10 @@ public class CmdPerf extends CommandBase {
         } else {
             m.execute(sender, this, new String[] { "status" });
         }
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }
