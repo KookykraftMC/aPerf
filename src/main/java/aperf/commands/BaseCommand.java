@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.WorldServer;
 
 import org.bukkit.ChatColor;
@@ -23,7 +24,7 @@ public abstract class BaseCommand {
         if (sender == MinecraftServer.getServer()) {
             Log.direct(msg); // supports colors
         } else {
-            sender.sendChatToPlayer(msg);
+            sender.sendChatToPlayer(ChatMessageComponent.createFromText(msg));
         }
     }
 

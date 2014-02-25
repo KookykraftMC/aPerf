@@ -10,8 +10,10 @@ import java.util.Map.Entry;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -28,7 +30,7 @@ import aperf.sys.objects.SpawnLimit;
 
 public class SpawnLimiterModule extends ModuleBase {
     private SpawnLimiterEvents events;
-    private Map<Integer, EntityLiving> lastNormalSpawn = new HashMap<Integer, EntityLiving>();
+    private Map<Integer, EntityLivingBase> lastNormalSpawn = new HashMap<Integer, EntityLivingBase>();
 
     public List<SpawnLimit> limits = new ArrayList<SpawnLimit>();
     public static SpawnLimiterModule instance = new SpawnLimiterModule();
@@ -184,7 +186,7 @@ public class SpawnLimiterModule extends ModuleBase {
         }
     }
 
-    public boolean canEntitySpawnNaturally(EntityLiving ent, World server) {
+    public boolean canEntitySpawnNaturally(EntityLivingBase ent, World server) {
         lastNormalSpawn.put(server.provider.dimensionId, ent);
 
         boolean result = !executeRulesOnNormalSpawning || canEntitySpawn(ent, server);
@@ -223,13 +225,13 @@ public class SpawnLimiterModule extends ModuleBase {
         synchronized (eventLoggers) {
             for (Entry<ICommandSender, Filter> kv : eventLoggers.entrySet()) {
                 if (kv.getValue() == null || kv.getValue().hitsAll(e)) {
-                    kv.getKey().sendChatToPlayer(msg);
+                    kv.getKey().sendChatToPlayer(ChatMessageComponent.createFromText(msg));
                 }
             }
         }
     }
 
-    public boolean canEntitySpawn(EntityLiving ent, World server) {
+    public boolean canEntitySpawn(EntityLivingBase ent, World server) {
         if (!enabled) {
             return true;
         }
@@ -244,7 +246,7 @@ public class SpawnLimiterModule extends ModuleBase {
         return true;
     }
 
-    protected boolean findLimitsAndCheck(EntityLiving ent, World server) {
+    protected boolean findLimitsAndCheck(EntityLivingBase ent, World server) {
         for (SpawnLimit limit : limits) {
             if (!limit.on) {
                 continue;
