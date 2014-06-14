@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableSetMultimap;
 public class Status extends BaseCommand {
 	@Command(name = "aperf", syntax = "(?:status|s)", description = "Shows the general server status", isPrimary = true, permission = "aperf.cmd.status")
 	public void status(Object plugin, ICommandSender sender, Map<String, String> args) {
-		String format = "%s%3s | %s%5s%s | %7s | %8s | %5s | %6s | %6s";
+		String format = "%s%4s | %s%5s%s | %7s | %8s | %5s | %6s | %6s";
 
 		msg(sender, format, EnumChatFormatting.DARK_GREEN, " #", "", "Tick", "", "Players", "Entities", "Tiles", "Chunks", "Forced");
 		msg(sender, "%s-----------------------------------------------------", EnumChatFormatting.GRAY);
