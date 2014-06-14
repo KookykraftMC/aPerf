@@ -21,23 +21,24 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = config.version
-group= "aperf"
-archivesBaseName = "aPerf"
+version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("TRAVIS_BUILD_NUMBER") ?: 0}"
+group = config.group
+archivesBaseName = config.archivesBaseName
+
+libsDirName = "../jars/" // This is the location the built jars should end up
 
 minecraft {
-	version = config.minecraft_version +"-"+ config.forge_version
+    version = "${config.minecraft_version}-${config.forge_version}"
+
+    replace "@VERSION@", "${project.version}"
 }
 
-processResources
-{
+processResources {
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod/info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        include 'mcmod.info'
+        expand 'mod_version':project.version, 'minecraft_version':project.minecraft.version
     }
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
-
-
