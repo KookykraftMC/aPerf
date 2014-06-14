@@ -11,50 +11,50 @@ import aperf.sys.objects.Filter;
 import aperf.sys.objects.FilterCollection;
 
 public class EntityModule extends ModuleBase {
-    public static EntityModule instance = new EntityModule();
-    public FilterCollection safeList;
+	public static EntityModule instance = new EntityModule();
+	public FilterCollection safeList;
 
-    public EntityModule() {
-        addCommand(new aperf.sys.entity.cmd.EntityList());
-        addCommand(new aperf.sys.entity.cmd.EntityRemoving());
+	public EntityModule() {
+		addCommand(new aperf.sys.entity.cmd.EntityList());
+		addCommand(new aperf.sys.entity.cmd.EntityRemoving());
 
-        visible = false;
-    }
+		visible = false;
+	}
 
-    public int removeEntities(Filter filter, Entity centered, int range) {
-        int removed = 0;
-        int distSq = range * range;
-        for (World w : MinecraftServer.getServer().worldServers) {
-            ArrayList<Entity> toRemove = new ArrayList<Entity>();
-            for (int i = 0; i < w.loadedEntityList.size(); i++) {
-                Entity ent = (Entity) w.loadedEntityList.get(i);
+	public int removeEntities(Filter filter, Entity centered, int range) {
+		int removed = 0;
+		int distSq = range * range;
+		for (World w : MinecraftServer.getServer().worldServers) {
+			ArrayList<Entity> toRemove = new ArrayList<Entity>();
+			for (int i = 0; i < w.loadedEntityList.size(); i++) {
+				Entity ent = (Entity) w.loadedEntityList.get(i);
 
-                if (ent instanceof EntityPlayer) {
-                    continue;
-                }
+				if (ent instanceof EntityPlayer) {
+					continue;
+				}
 
-                if (EntitySafeListModule.isEntitySafe(ent)) {
-                    continue;
-                }
+				if (EntitySafeListModule.isEntitySafe(ent)) {
+					continue;
+				}
 
-                if (centered != null && range >= 0 && ent.getDistanceSqToEntity(centered) > distSq) {
-                    continue;
-                }
+				if (centered != null && range >= 0 && ent.getDistanceSqToEntity(centered) > distSq) {
+					continue;
+				}
 
-                if (!filter.hitsAll(ent)) {
-                    continue;
-                }
+				if (!filter.hitsAll(ent)) {
+					continue;
+				}
 
-                toRemove.add(ent);
-            }
+				toRemove.add(ent);
+			}
 
-            for (Entity e : toRemove) {
-                EntityHelper.removeEntity(e);
-            }
+			for (Entity e : toRemove) {
+				EntityHelper.removeEntity(e);
+			}
 
-            removed += toRemove.size();
-        }
+			removed += toRemove.size();
+		}
 
-        return removed;
-    }
+		return removed;
+	}
 }

@@ -5,8 +5,8 @@ import net.minecraft.world.World;
 import aperf.sys.objects.SpawnLimit;
 
 public class Disabled extends SpawnLimit {
-    @Override
-    public boolean canSpawn(Entity e, World world) {
-        return false;
-    }
+	@Override
+	public boolean canSpawn(Entity e, World world) {
+		return false;
+	}
 }

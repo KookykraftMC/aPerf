@@ -11,129 +11,128 @@ import java.util.Map.Entry;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.WorldServer;
-
-import org.bukkit.ChatColor;
-
 import aperf.Log;
 
 public abstract class BaseCommand {
-    public void onRegistered(CommandsManager manager) {}
+	public void onRegistered(CommandsManager manager) {
+	}
 
-    protected void msg(ICommandSender sender, String msg) {
-        if (sender == MinecraftServer.getServer()) {
-            Log.direct(msg); // supports colors
-        } else {
-            sender.sendChatToPlayer(ChatMessageComponent.createFromText(msg));
-        }
-    }
+	protected void msg(ICommandSender sender, String msg) {
+		if (sender == MinecraftServer.getServer()) {
+			Log.direct(msg); // supports colors
+		} else {
+			sender.sendChatToPlayer(ChatMessageComponent.createFromText(msg));
+		}
+	}
 
-    protected void msg(ICommandSender sender, String format, Object... args) {
-        msg(sender, String.format(format, args));
-    }
+	protected void msg(ICommandSender sender, String format, Object... args) {
+		msg(sender, String.format(format, args));
+	}
 
-    public boolean isInteger(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+	public boolean isInteger(String input) {
+		try {
+			Integer.parseInt(input);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
-    public static <T> List<Entry<String, Integer>> getGroupedCounts(List<?> list, IGrouper<T> grouper) {
-        HashMap<String, Integer> grouped = new HashMap<String, Integer>();
+	public static <T> List<Entry<String, Integer>> getGroupedCounts(List<?> list, IGrouper<T> grouper) {
+		HashMap<String, Integer> grouped = new HashMap<String, Integer>();
 
-        for (Object o : list) {
-            @SuppressWarnings("unchecked")
-            String group = grouper.group((T) o);
+		for (Object o : list) {
+			@SuppressWarnings("unchecked")
+			String group = grouper.group((T) o);
 
-            if (group == null) {
-                continue;
-            }
+			if (group == null) {
+				continue;
+			}
 
-            Integer prev = grouped.get(group);
-            grouped.put(group, prev == null ? 1 : prev + 1);
-        }
+			Integer prev = grouped.get(group);
+			grouped.put(group, prev == null ? 1 : prev + 1);
+		}
 
-        ArrayList<Entry<String, Integer>> sorted = new ArrayList<Entry<String, Integer>>(grouped.entrySet());
+		ArrayList<Entry<String, Integer>> sorted = new ArrayList<Entry<String, Integer>>(grouped.entrySet());
 
-        Collections.sort(sorted, new Comparator<Entry<String, Integer>>() {
-            @Override
-            public int compare(Entry<String, Integer> arg0, Entry<String, Integer> arg1) {
-                return Integer.compare(arg1.getValue(), arg0.getValue());
-            }
-        });
+		Collections.sort(sorted, new Comparator<Entry<String, Integer>>() {
+			@Override
+			public int compare(Entry<String, Integer> arg0, Entry<String, Integer> arg1) {
+				return Integer.compare(arg1.getValue(), arg0.getValue());
+			}
+		});
 
-        return sorted;
-    }
+		return sorted;
+	}
 
-    public interface IGrouper<T> {
-        public String group(T t);
-    }
+	public interface IGrouper<T> {
+		public String group(T t);
+	}
 
-    public interface IListForObject<T> {
-        public List<?> list(T obj);
-    }
+	public interface IListForObject<T> {
+		public List<?> list(T obj);
+	}
 
-    protected void sendCountedList(ICommandSender sender, String prefix, List<Entry<String, Integer>> counts, Integer from, Integer cnt) {
-        String maxCntLen = null;
-        int i = -1;
-        int iFrom = from == null ? 0 : from.intValue();
-        int limit = cnt == null ? counts.size() : cnt.intValue() + iFrom;
-        for (Entry<String, Integer> entry : counts) {
-            i++;
-            if (i < iFrom || i >= limit) {
-                continue;
-            }
+	protected void sendCountedList(ICommandSender sender, String prefix, List<Entry<String, Integer>> counts, Integer from, Integer cnt) {
+		String maxCntLen = null;
+		int i = -1;
+		int iFrom = from == null ? 0 : from.intValue();
+		int limit = cnt == null ? counts.size() : cnt.intValue() + iFrom;
+		for (Entry<String, Integer> entry : counts) {
+			i++;
+			if (i < iFrom || i >= limit) {
+				continue;
+			}
 
-            if (maxCntLen == null) {
-                maxCntLen = String.valueOf(entry.getValue().toString().length());
-            }
+			if (maxCntLen == null) {
+				maxCntLen = String.valueOf(entry.getValue().toString().length());
+			}
 
-            msg(sender, "%s%s%" + maxCntLen + "d %s| %s%s", prefix, ChatColor.RED, entry.getValue(), ChatColor.GREEN, ChatColor.YELLOW, entry.getKey());
+			msg(sender, "%s%s%" + maxCntLen + "d %s| %s%s", prefix, EnumChatFormatting.RED, entry.getValue(), EnumChatFormatting.GREEN, EnumChatFormatting.YELLOW, entry.getKey());
 
-        }
-    }
+		}
+	}
 
-    public <T> void sendWorldGroupedList(String reportName, ICommandSender sender, IListForObject<WorldServer> list, IGrouper<T> grouper) {
-        sendWorldGroupedList(reportName, sender, list, grouper, null, null);
-    }
+	public <T> void sendWorldGroupedList(String reportName, ICommandSender sender, IListForObject<WorldServer> list, IGrouper<T> grouper) {
+		sendWorldGroupedList(reportName, sender, list, grouper, null, null);
+	}
 
-    public <T> void sendWorldGroupedList(String reportName, ICommandSender sender, IListForObject<WorldServer> list, IGrouper<T> grouper, Integer start, Integer count) {
-        msg(sender, "%s%s", ChatColor.DARK_GREEN, reportName);
-        msg(sender, "%s----------------------------------", ChatColor.GRAY);
+	public <T> void sendWorldGroupedList(String reportName, ICommandSender sender, IListForObject<WorldServer> list, IGrouper<T> grouper, Integer start, Integer count) {
+		msg(sender, "%s%s", EnumChatFormatting.DARK_GREEN, reportName);
+		msg(sender, "%s----------------------------------", EnumChatFormatting.GRAY);
 
-        for (WorldServer serv : MinecraftServer.getServer().worldServers) {
-            List<?> l = list.list(serv);
-            if (l.size() < 1) {
-                continue;
-            }
+		for (WorldServer serv : MinecraftServer.getServer().worldServers) {
+			List<?> l = list.list(serv);
+			if (l.size() < 1) {
+				continue;
+			}
 
-            int cnt = 0;
-            List<Entry<String, Integer>> counts = getGroupedCounts(l, grouper);
-            for (Entry<String, Integer> e : counts) {
-                cnt += e.getValue();
-            }
+			int cnt = 0;
+			List<Entry<String, Integer>> counts = getGroupedCounts(l, grouper);
+			for (Entry<String, Integer> e : counts) {
+				cnt += e.getValue();
+			}
 
-            msg(sender, "%s%s [%d], %s %s", ChatColor.GREEN, serv.provider.getDimensionName(), serv.provider.dimensionId, cnt, cnt == 1 ? "entity" : "entities");
+			msg(sender, "%s%s [%d], %s %s", EnumChatFormatting.GREEN, serv.provider.getDimensionName(), serv.provider.dimensionId, cnt, cnt == 1 ? "entity" : "entities");
 
-            sendCountedList(sender, "   ", counts, start, count);
-        }
+			sendCountedList(sender, "   ", counts, start, count);
+		}
 
-        msg(sender, "%s----------------------------------", ChatColor.GRAY);
-    }
+		msg(sender, "%s----------------------------------", EnumChatFormatting.GRAY);
+	}
 
-    public static List<Class<?>> getAllInterfaces(Class<?> cls) {
-        List<Class<?>> lst = new ArrayList<Class<?>>();
+	public static List<Class<?>> getAllInterfaces(Class<?> cls) {
+		List<Class<?>> lst = new ArrayList<Class<?>>();
 
-        lst.addAll(Arrays.asList(cls.getInterfaces()));
+		lst.addAll(Arrays.asList(cls.getInterfaces()));
 
-        Class<?> s = cls.getSuperclass();
-        if (s != null) {
-            lst.addAll(getAllInterfaces(s));
-        }
+		Class<?> s = cls.getSuperclass();
+		if (s != null) {
+			lst.addAll(getAllInterfaces(s));
+		}
 
-        return lst;
-    }
+		return lst;
+	}
 }

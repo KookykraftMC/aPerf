@@ -1,13 +1,13 @@
 package aperf.sys.objects;
 
 public class EntityClassMapEntry<T, K, L> {
-    public T key;
-    public K mid;
-    public L value;
+	public T key;
+	public K mid;
+	public L value;
 
-    public EntityClassMapEntry(T pKey, K pMid, L pValue) {
-        key = pKey;
-        mid = pMid;
-        value = pValue;
-    }
+	public EntityClassMapEntry(T pKey, K pMid, L pValue) {
+		key = pKey;
+		mid = pMid;
+		value = pValue;
+	}
 }
