@@ -22,6 +22,11 @@ configFile.withReader {
 }
 
 version = "${config.minecraft_version}-${config.mod_version}.${System.getenv("TRAVIS_BUILD_NUMBER") ?: 0}"
+
+if (("${System.getenv().TRAVIS}" != null)) {
+    jar.archiveName = config.archivesBaseName + ".jar"
+}
+
 group = config.group
 archivesBaseName = config.archivesBaseName
 
