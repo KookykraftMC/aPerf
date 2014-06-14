@@ -1,15 +1,16 @@
 language: java
 notifications:
   email: false
-  irc:
-    channels:
-    - irc.esper.net#MyTown
+#  irc:
+#    channels:
+#    - irc.esper.net#MyTown
 deploy:
   provider: releases
-  file: jars/aPerf*
+  file: jars/
   skip_cleanup: true
   api_key:
     secure: cwNbw/Ts54y5IoHKRaE7nkCdZduPVkDoGo53FLbCd0SWetn+n7jxO1ouGGOgcpjiVC4tkWE0/yLhMbPmTfw9S6GpiRmqtEqx7LbOlSBnAlikHdDUYJng4nZKZKxS9zWGujqIoVjITut80reW+vVnekd9jOgelGrUEEqozi0HUpI=
   on:
     tags: true
     all_branches: true
+    repo: MyEssentials/aPerf
