@@ -1,19 +1,12 @@
 language: java
-
 notifications:
   email: false
   irc:
     channels:
-      - "irc.esper.net#MyTown"
-#    template:
-#      - "%{repository_name} (%{branch}): %{commit_message} - %{author}"
-#      - "Result: %{result}"
-#      - "Change view: %{compare_url}"
-#      - "Build details: %{build_url}"
-
+    - irc.esper.net#MyTown
 deploy:
   provider: releases
   api_key:
-    secure: GFJyjvU0SV+xS8Vhl5//eizgSCZjjzASJaIMfV88Znle8pR3zF8lpzQmnj7sgV8l9LY5LLWwhJfz1ci4GvcBYDJPvW4fuqKTPstw+EKrJ9ZDwFsQFFTzlsgzeYdWOK2jzrQdI0854StKOc4+AxIFM9hkk0VXFsp1EJ1EyUyfTbs=
+    secure: cwNbw/Ts54y5IoHKRaE7nkCdZduPVkDoGo53FLbCd0SWetn+n7jxO1ouGGOgcpjiVC4tkWE0/yLhMbPmTfw9S6GpiRmqtEqx7LbOlSBnAlikHdDUYJng4nZKZKxS9zWGujqIoVjITut80reW+vVnekd9jOgelGrUEEqozi0HUpI=
   file: jars/aPerf*
   skip_cleanup: true
