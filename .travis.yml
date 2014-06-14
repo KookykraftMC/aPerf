@@ -1,9 +1,9 @@
 language: java
 notifications:
   email: false
-#  irc:
-#    channels:
-#    - irc.esper.net#MyTown
+  irc:
+    channels:
+    - irc.esper.net#MyTown
 deploy:
   provider: releases
   file: jars/aPerf.jar
