@@ -1,15 +1,14 @@
 package aperf.sys.entity;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.world.ChunkEvent;
-import cpw.mods.fml.common.IPlayerTracker;
 
-public class SpawnLimiterEvents implements IPlayerTracker {
+public class SpawnLimiterEvents {
 	SpawnLimiterModule parent;
 
 	public SpawnLimiterEvents(SpawnLimiterModule parent) {
@@ -18,11 +17,11 @@ public class SpawnLimiterEvents implements IPlayerTracker {
 
 	@ForgeSubscribe
 	public void entityJoinWorld(EntityJoinWorldEvent ev) {
-		if (!(ev.entity instanceof EntityLiving) || ev.entity instanceof EntityPlayer) {
+		if (!(ev.entity instanceof EntityLivingBase) || ev.entity instanceof EntityPlayer) {
 			return;
 		}
 
-		if (!parent.canEntityJoinWorld((EntityLiving) ev.entity, ev.world)) {
+		if (!parent.canEntityJoinWorld((EntityLivingBase) ev.entity, ev.world)) {
 			ev.setCanceled(true);
 		}
 	}
@@ -47,22 +46,5 @@ public class SpawnLimiterEvents implements IPlayerTracker {
 		synchronized (parent.fullyLoadedChunks) {
 			parent.fullyLoadedChunks.remove(EntityHelper.getChunkHash(ev.getChunk()));
 		}
-	}
-
-	@Override
-	public void onPlayerLogin(EntityPlayer player) {
-	}
-
-	@Override
-	public void onPlayerLogout(EntityPlayer player) {
-		SpawnLimiterModule.instance.eventLoggers.remove(player);
-	}
-
-	@Override
-	public void onPlayerChangedDimension(EntityPlayer player) {
-	}
-
-	@Override
-	public void onPlayerRespawn(EntityPlayer player) {
 	}
 }

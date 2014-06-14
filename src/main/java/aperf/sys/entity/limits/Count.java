@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
@@ -52,7 +52,7 @@ public class Count extends SpawnLimit {
 
 		for (int i = 0; i < entityList.size(); i++) {
 			Entity e = (Entity) entityList.get(i);
-			if (!(e instanceof EntityLiving) || e instanceof EntityPlayer || EntitySafeListModule.isEntitySafe(e)) {
+			if (!(e instanceof EntityLivingBase) || e instanceof EntityPlayer || EntitySafeListModule.isEntitySafe(e)) {
 				continue;
 			}
 

@@ -7,7 +7,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.entity.boss.EntityWither;
@@ -79,7 +79,7 @@ public class EntityClassMap extends HashSet<EntityClassMapEntry<Class<? extends 
 		put(Entity.class, "net.minecraft.entity", "Entity");
 		put(EntityCreature.class, "net.minecraft.entity", "EntityCreature");
 		put(EntityAgeable.class, "net.minecraft.entity", "EntityAgeable");
-		put(EntityLiving.class, "net.minecraft.entity", "EntityLiving");
+		put(EntityLivingBase.class, "net.minecraft.entity", "EntityLivingBase");
 		put(EntityHanging.class, "net.minecraft.entity", "EntityHanging");
 		put(EntityFlying.class, "net.minecraft.entity", "EntityFlying");
 

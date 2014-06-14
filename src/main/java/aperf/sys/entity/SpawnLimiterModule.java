@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
@@ -26,7 +25,6 @@ import aperf.aPerf;
 import aperf.sys.ModuleBase;
 import aperf.sys.objects.Filter;
 import aperf.sys.objects.SpawnLimit;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class SpawnLimiterModule extends ModuleBase {
 	private SpawnLimiterEvents events;
@@ -104,7 +102,6 @@ public class SpawnLimiterModule extends ModuleBase {
 		loadConfig();
 		events = new SpawnLimiterEvents(this);
 		MinecraftForge.EVENT_BUS.register(events);
-		GameRegistry.registerPlayerTracker(events);
 
 		indexLoadedChunks();
 	}
@@ -170,11 +167,11 @@ public class SpawnLimiterModule extends ModuleBase {
 
 			for (int i = c.entityLists[ci].size() - 1; i >= 0; i--) {
 				Object o = c.entityLists[ci].get(i);
-				if (o == null || !(o instanceof EntityLiving) || o instanceof EntityPlayer) {
+				if (o == null || !(o instanceof EntityLivingBase) || o instanceof EntityPlayer) {
 					continue;
 				}
 
-				EntityLiving e = (EntityLiving) o;
+				EntityLivingBase e = (EntityLivingBase) o;
 
 				if (!canEntitySpawn(e, c.worldObj)) {
 					sendLog(e, "§f[§aaPerf§f][§aload§f] %s §f%s", "§4blocked", e);
@@ -198,7 +195,7 @@ public class SpawnLimiterModule extends ModuleBase {
 		return result;
 	}
 
-	public boolean canEntityJoinWorld(EntityLiving ent, World server) {
+	public boolean canEntityJoinWorld(EntityLivingBase ent, World server) {
 		boolean normalSpawn = lastNormalSpawn.get(server.provider.dimensionId) == ent;
 
 		// already checked
