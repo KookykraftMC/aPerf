@@ -1,17 +1,17 @@
 package aperf.sys.cmd;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
 import aperf.aPerf;
 import aperf.commands.BaseCommand;
 import aperf.commands.Command;
 import aperf.commands.CommandsManager.CommandBinding;
 import aperf.sys.objects.SubFilter;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumChatFormatting;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class Help extends BaseCommand {
 	private static int helpCommandsPerPage = 4;
@@ -33,7 +33,7 @@ public class Help extends BaseCommand {
 		msg(sender, "%saPerf commands. Page %s%s %sof %s%s", EnumChatFormatting.DARK_GREEN, EnumChatFormatting.DARK_PURPLE, page, EnumChatFormatting.DARK_GREEN, EnumChatFormatting.DARK_PURPLE, pages);
 		msg(sender, "%s----------------------------------", EnumChatFormatting.GRAY);
 
-		boolean showPerm = sender instanceof EntityPlayer ? aPerf.instance.permManager.canAccess(((EntityPlayer) sender).username, ((EntityPlayer) sender).worldObj.provider.getDimensionName(), "aperf.show.cmd.perm") : true;
+		boolean showPerm = sender instanceof EntityPlayer ? aPerf.instance.permManager.canAccess(((EntityPlayer) sender).getDisplayName(), ((EntityPlayer) sender).worldObj.provider.getDimensionName(), "aperf.show.cmd.perm") : true;
 
 		int i = 0;
 		for (CommandBinding cmd : commands) {
@@ -67,7 +67,7 @@ public class Help extends BaseCommand {
 			if (desc.isPlayerOnly() && !(user instanceof EntityPlayer)) {
 				continue;
 			}
-			if (user instanceof EntityPlayer && !aPerf.instance.permManager.canAccess(((EntityPlayer) user).username, ((EntityPlayer) user).worldObj.provider.getDimensionName(), desc.permission())) {
+			if (user instanceof EntityPlayer && !aPerf.instance.permManager.canAccess(((EntityPlayer) user).getDisplayName(), ((EntityPlayer) user).worldObj.provider.getDimensionName(), desc.permission())) {
 				continue;
 			}
 

@@ -1,11 +1,11 @@
 package aperf.sys.objects;
 
-import java.util.ArrayList;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.tileentity.TileEntity;
 import aperf.sys.entity.EntityHelper;
 import aperf.sys.tile.TileEntityHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
+
+import java.util.ArrayList;
 
 public class FilterCollection extends ArrayList<Filter> {
 	/**
@@ -45,7 +45,7 @@ public class FilterCollection extends ArrayList<Filter> {
 	}
 
 	public boolean hits(TileEntity t, boolean all) {
-		return hits(System.identityHashCode(t), TileEntityHelper.getEntityName(t), TileEntityHelper.getEntityType(t), t.getClass(), t.getClass().getSimpleName(), t.getClass().getName(), t.worldObj.provider.dimensionId, t.xCoord, t.yCoord, t.zCoord, all);
+		return hits(System.identityHashCode(t), TileEntityHelper.getEntityName(t), TileEntityHelper.getEntityType(t), t.getClass(), t.getClass().getSimpleName(), t.getClass().getName(), t.getWorldObj().provider.dimensionId, t.xCoord, t.yCoord, t.zCoord, all);
 	}
 
 	public boolean hits(int hash, String name, String group, Class<?> c, String clas, String lclas, int dim, int x, int y, int z, boolean all) {

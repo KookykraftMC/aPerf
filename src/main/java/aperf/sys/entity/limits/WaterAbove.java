@@ -1,13 +1,14 @@
 package aperf.sys.entity.limits;
 
-import java.util.Map;
+import net.minecraft.block.BlockLiquid;
 
-import net.minecraft.block.Block;
+import java.util.Map;
 
 public class WaterAbove extends VerticalBlockComparer {
 	public WaterAbove() {
 		upwards = true;
-		blockToFind = Block.waterStill.blockID;
+		//blockToFind = Block.waterStill.blockID;
+		blockToFind = BlockLiquid.getIdFromBlock(BlockLiquid.getBlockFromName("waterStill"));
 	}
 
 	@Override

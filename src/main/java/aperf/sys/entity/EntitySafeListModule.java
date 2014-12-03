@@ -1,8 +1,8 @@
 package aperf.sys.entity;
 
 import net.minecraft.entity.Entity;
-import net.minecraftforge.common.ConfigCategory;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.common.config.ConfigCategory;
+import net.minecraftforge.common.config.Property;
 import aperf.aPerf;
 import aperf.sys.ModuleBase;
 import aperf.sys.objects.Filter;

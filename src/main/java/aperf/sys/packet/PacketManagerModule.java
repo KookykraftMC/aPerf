@@ -171,7 +171,7 @@ public class PacketManagerModule extends ModuleBase implements IPacketHandler {
 
 		map.get(tag)[subId] = occurence;
 
-		updatePersonalPacketLimits(player.username, map, true, diggestUsersToggles.get(player.username.toLowerCase()));
+		updatePersonalPacketLimits(player.getDisplayName(), map, true, diggestUsersToggles.get(player.getDisplayName().toLowerCase()));
 	}
 
 	public void removeLimits(EntityPlayer player) {
@@ -179,7 +179,7 @@ public class PacketManagerModule extends ModuleBase implements IPacketHandler {
 			limits.remove(player);
 			limitsCounter.remove(player);
 
-			updatePersonalPacketLimits(player.username, null, false, diggestUsersToggles.get(player.username.toLowerCase()));
+			updatePersonalPacketLimits(player.getDisplayName(), null, false, diggestUsersToggles.get(player.getDisplayName().toLowerCase()));
 		}
 	}
 
@@ -346,7 +346,7 @@ public class PacketManagerModule extends ModuleBase implements IPacketHandler {
 
 	public void toggleLimits(EntityPlayer player, boolean on) {
 		if (on) {
-			HashMap<String, byte[]> l = limitLoader.get(player.username.toLowerCase());
+			HashMap<String, byte[]> l = limitLoader.get(player.getDisplayName().toLowerCase());
 			if (l == null) {
 				l = defaultLimits;
 			}
@@ -360,8 +360,8 @@ public class PacketManagerModule extends ModuleBase implements IPacketHandler {
 			limitsCounter.remove(player);
 		}
 
-		limitLoaderToggles.put(player.username.toLowerCase(), on);
-		updatePersonalPacketLimits(player.username, limitLoader.get(player.username.toLowerCase()), on, diggestUsersToggles.get(player.username.toLowerCase()));
+		limitLoaderToggles.put(player.getDisplayName().toLowerCase(), on);
+		updatePersonalPacketLimits(player.getDisplayName(), limitLoader.get(player.getDisplayName().toLowerCase()), on, diggestUsersToggles.get(player.getDisplayName().toLowerCase()));
 	}
 
 	public boolean areLimitsActive(EntityPlayer player) {
@@ -391,12 +391,12 @@ public class PacketManagerModule extends ModuleBase implements IPacketHandler {
 	}
 
 	public void playerLogin(EntityPlayer pl) {
-		if (autoLoadLimits(pl.username)) {
+		if (autoLoadLimits(pl.getDisplayName())) {
 			toggleLimits(pl, true);
 		}
 
-		if (diggestUsersToggles.get(pl.username.toLowerCase()) != null) {
-			diggestUsers.put(pl, diggestUsersToggles.get(pl.username.toLowerCase()));
+		if (diggestUsersToggles.get(pl.getDisplayName().toLowerCase()) != null) {
+			diggestUsers.put(pl, diggestUsersToggles.get(pl.getDisplayName().toLowerCase()));
 		}
 	}
 
@@ -407,7 +407,7 @@ public class PacketManagerModule extends ModuleBase implements IPacketHandler {
 			diggestUsers.remove(player);
 		}
 
-		updatePersonalPacketLimits(player.username, limitLoader.get(player.username.toLowerCase()), autoLoadLimits(player.username), flag);
+		updatePersonalPacketLimits(player.getDisplayName(), limitLoader.get(player.getDisplayName().toLowerCase()), autoLoadLimits(player.getDisplayName()), flag);
 	}
 
 	public void playerQuit(EntityPlayer ent) {

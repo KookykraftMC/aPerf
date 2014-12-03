@@ -1,12 +1,12 @@
 package aperf.commands;
 
-import java.util.Arrays;
-import java.util.List;
-
+import aperf.aPerf;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
-import aperf.aPerf;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CmdPerf extends CommandBase {
 	@Override
@@ -18,7 +18,7 @@ public class CmdPerf extends CommandBase {
 	public boolean canCommandSenderUseCommand(ICommandSender cs) {
 		if (cs instanceof EntityPlayerMP) {
 			EntityPlayerMP p = (EntityPlayerMP) cs;
-			return aPerf.instance.permManager.canAccess(p.username, p.worldObj.provider.getDimensionName(), "aperf.cmd");
+			return aPerf.instance.permManager.canAccess(p.getDisplayName(), p.worldObj.provider.getDimensionName(), "aperf.cmd");
 		}
 		return false;
 	}

@@ -12,15 +12,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ChunkProviderServer;
-import net.minecraftforge.common.ConfigCategory;
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.common.config.Property;
 import aperf.aPerf;
 import aperf.sys.ModuleBase;
 import aperf.sys.objects.Filter;
@@ -222,7 +222,7 @@ public class SpawnLimiterModule extends ModuleBase {
 		synchronized (eventLoggers) {
 			for (Entry<ICommandSender, Filter> kv : eventLoggers.entrySet()) {
 				if (kv.getValue() == null || kv.getValue().hitsAll(e)) {
-					kv.getKey().sendChatToPlayer(ChatMessageComponent.createFromText(msg));
+					kv.getKey().addChatMessage(new ChatComponentText(msg));
 				}
 			}
 		}

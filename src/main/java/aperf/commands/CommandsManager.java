@@ -1,24 +1,19 @@
 package aperf.commands;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import aperf.Log;
+import aperf.aPerf;
+import com.google.common.base.Joiner;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import aperf.Log;
-import aperf.aPerf;
 
-import com.google.common.base.Joiner;
+import java.lang.reflect.Method;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommandsManager {
 	protected Map<String, Map<CommandSyntax, CommandBinding>> listeners = new LinkedHashMap<String, Map<CommandSyntax, CommandBinding>>();
@@ -87,7 +82,7 @@ public class CommandsManager {
 
 		if (selectedBinding == null) // there is fitting handler
 		{
-			sender.sendChatToPlayer(ChatMessageComponent.createFromText(EnumChatFormatting.RED + "Error in command syntax. Check command help."));
+			sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Error in command syntax. Check command help."));
 			return true;
 		}
 
@@ -96,8 +91,8 @@ public class CommandsManager {
 											// required permission
 		{
 			if (!selectedBinding.checkPermissions((EntityPlayer) sender)) {
-				Log.warning("User §4" + ((EntityPlayer) sender).username + " §etried to access chat command \"" + command.getCommandName() + " " + arguments + "\", but §4doesn't have permission §eto do this.");
-				sender.sendChatToPlayer(ChatMessageComponent.createFromText(EnumChatFormatting.RED + "Sorry, you don't have enough permissions."));
+				Log.warning("User §4" + ((EntityPlayer) sender).getDisplayName() + " §etried to access chat command \"" + command.getCommandName() + " " + arguments + "\", but §4doesn't have permission §eto do this.");
+				sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Sorry, you don't have enough permissions."));
 				return true;
 			}
 		}
@@ -110,10 +105,10 @@ public class CommandsManager {
 			}
 
 			if (e instanceof CommandException) {
-				sender.sendChatToPlayer(ChatMessageComponent.createFromText(EnumChatFormatting.RED + "Command error: " + e.getMessage()));
+				sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Command error: " + e.getMessage()));
 			} else {
 				Log.severe("There is bogus command handler for " + command.getCommandName() + " command.", e);
-				sender.sendChatToPlayer(ChatMessageComponent.createFromText(EnumChatFormatting.RED + "Command exception: " + e.getClass().getSimpleName() + " " + (e.getMessage() == null ? "" : e.getMessage())));
+				sender.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Command exception: " + e.getClass().getSimpleName() + " " + (e.getMessage() == null ? "" : e.getMessage())));
 			}
 		}
 
@@ -230,7 +225,7 @@ public class CommandsManager {
 				}
 			}
 
-			return aPerf.instance.permManager.canAccess(player.username, player.worldObj.provider.getDimensionName(), permission);
+			return aPerf.instance.permManager.canAccess(player.getDisplayName(), player.worldObj.provider.getDimensionName(), permission);
 		}
 
 		public void call(Object... args) throws Exception {

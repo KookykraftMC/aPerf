@@ -1,14 +1,14 @@
 package aperf.sys.packet.cmd;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
 import aperf.commands.BaseCommand;
 import aperf.commands.Command;
 import aperf.sys.packet.PacketManagerModule;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumChatFormatting;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PacketLimits extends BaseCommand {
 	@Command(name = "aperf", syntax = "(?:packet|p) (?:limit|l) (?:add|a) <channel> <id> <x>", description = "Adds a packet limit\n" + "neg - skip every x'th. pos - allow every x'th. 0 - off", permission = "aperf.cmd.packet.limit.add", isPlayerOnly = true)
@@ -23,7 +23,7 @@ public class PacketLimits extends BaseCommand {
 			throw new Exception(String.format("Id has to be between 0 and %s", PacketManagerModule.Instance.subTypesCustom));
 		}
 
-		boolean on = PacketManagerModule.Instance.autoLoadLimits(player.username);
+		boolean on = PacketManagerModule.Instance.autoLoadLimits(player.getDisplayName());
 		PacketManagerModule.Instance.setLimit(player, tag, subid, occurence);
 
 		msg(sender, "Packet limit §2added");
@@ -89,7 +89,7 @@ public class PacketLimits extends BaseCommand {
 		int diggestActiveFlag = PacketManagerModule.Instance.getActiveDiggestFlag(player);
 
 		msg(sender, "%s-----------------------------------------------------", EnumChatFormatting.GRAY);
-		msg(sender, "§aPacket limits are set to %s and are %s", PacketManagerModule.Instance.autoLoadLimits(player.username) ? "§2ON§a" : "§4OFF§a", PacketManagerModule.Instance.areLimitsActive(player) ? "§2ACTIVE§a" : "§4INACTIVE§a");
+		msg(sender, "§aPacket limits are set to %s and are %s", PacketManagerModule.Instance.autoLoadLimits(player.getDisplayName()) ? "§2ON§a" : "§4OFF§a", PacketManagerModule.Instance.areLimitsActive(player) ? "§2ACTIVE§a" : "§4INACTIVE§a");
 		msg(sender, "§aDiggest packet limits are %s", diggestActiveFlag == 0 ? "§4OFF§a" : diggestActiveFlag == 1 ? "§ePLUGINS only§a" : diggestActiveFlag == 2 ? "§eMC only§a" : "§2ALL§a");
 
 		HashMap<String, byte[]> data = PacketManagerModule.Instance.getLimits(player);

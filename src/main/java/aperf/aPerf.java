@@ -1,12 +1,5 @@
 package aperf;
 
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-
-import net.minecraft.command.ServerCommandManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.common.Configuration;
 import aperf.commands.BaseCommand;
 import aperf.commands.CmdPerf;
 import aperf.commands.CommandsManager;
@@ -25,13 +18,19 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 import forgeperms.api.IChatManager;
 import forgeperms.api.IEconomyManager;
 import forgeperms.api.IPermissionManager;
+import net.minecraft.command.ServerCommandManager;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.common.config.Configuration;
+import org.apache.logging.log4j.Level;
+
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 @Mod(modid = "aPerf", name = "aPerf", version = "@VERSION@.@BUILD_NUMBER@")
-@NetworkMod(clientSideRequired = false, serverSideRequired = true)
+//@NetworkMod(clientSideRequired = false, serverSideRequired = true)
 public class aPerf {
 	public static String MOD_NAME = "aPerf";
 	public File configFile;
@@ -110,7 +109,7 @@ public class aPerf {
 				m.loadConfig();
 			}
 		} catch (Exception var8) {
-			FMLLog.log(Level.SEVERE, var8, MOD_NAME + " was unable to load it's configuration successfully", new Object[0]);
+			FMLLog.log(Level.ERROR, var8, MOD_NAME + " was unable to load it's configuration successfully", new Object[0]);
 			throw new RuntimeException(var8);
 		} finally {
 			config.save(); // re-save to add the missing configuration variables

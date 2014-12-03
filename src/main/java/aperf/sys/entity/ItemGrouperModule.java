@@ -1,16 +1,15 @@
 package aperf.sys.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import aperf.aPerf;
+import aperf.sys.ModuleBase;
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.world.World;
-import aperf.aPerf;
-import aperf.sys.ModuleBase;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemGrouperModule extends ModuleBase {
 	public static ItemGrouperModule instance = new ItemGrouperModule();
@@ -40,7 +39,8 @@ public class ItemGrouperModule extends ModuleBase {
 		loadConfig();
 		if (events == null) {
 			events = new ItemGrouperEvents(this);
-			TickRegistry.registerTickHandler(events, Side.SERVER);
+			//TickRegistry.registerTickHandler(events, Side.SERVER);
+			FMLCommonHandler.instance().bus().register(events);
 		}
 		// MinecraftForge.EVENT_BUS.register(events);
 	}

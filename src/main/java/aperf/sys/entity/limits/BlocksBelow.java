@@ -1,11 +1,11 @@
 package aperf.sys.entity.limits;
 
-import java.util.ArrayList;
-import java.util.Map;
-
+import com.google.common.base.Joiner;
+import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
-import com.google.common.base.Joiner;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class BlocksBelow extends VerticalBlockComparer {
 	public ArrayList<int[]> blocks = new ArrayList<int[]>();
@@ -60,7 +60,7 @@ public class BlocksBelow extends VerticalBlockComparer {
 
 	@Override
 	protected boolean isBlockCorrect(World world, int x, int y, int z) {
-		int type = world.getBlockId(x, y, z);
+		int type = Block.getIdFromBlock(world.getBlock(x, y, z));
 		int sub = world.getBlockMetadata(x, y, z);
 
 		for (int[] block : blocks) {

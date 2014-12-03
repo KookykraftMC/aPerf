@@ -1,5 +1,6 @@
 package aperf.sys.entity.limits;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import aperf.sys.objects.SpawnLimit;
@@ -72,7 +73,7 @@ public abstract class VerticalBlockComparer extends SpawnLimit {
 	}
 
 	protected boolean isBlockCorrect(World world, int x, int y, int z) {
-		int type = world.getBlockId(x, y, z);
+		int type = Block.getIdFromBlock(world.getBlock(x, y, z));
 
 		if (type != blockToFind) {
 			return false;

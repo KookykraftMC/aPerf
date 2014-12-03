@@ -1,19 +1,14 @@
 package aperf.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
+import aperf.Log;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.WorldServer;
-import aperf.Log;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 public abstract class BaseCommand {
 	public void onRegistered(CommandsManager manager) {
@@ -23,7 +18,7 @@ public abstract class BaseCommand {
 		if (sender == MinecraftServer.getServer()) {
 			Log.direct(msg); // supports colors
 		} else {
-			sender.sendChatToPlayer(ChatMessageComponent.createFromText(msg));
+			sender.addChatMessage(new ChatComponentText(msg));
 		}
 	}
 
