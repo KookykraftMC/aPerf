@@ -1,17 +1,17 @@
 package aperf.sys.cmd;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumChatFormatting;
 import aperf.aPerf;
 import aperf.commands.BaseCommand;
 import aperf.commands.Command;
 import aperf.commands.CommandsManager.CommandBinding;
 import aperf.sys.objects.SubFilter;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class Help extends BaseCommand {
 	private static int helpCommandsPerPage = 4;

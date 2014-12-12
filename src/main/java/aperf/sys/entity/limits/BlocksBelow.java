@@ -1,11 +1,12 @@
 package aperf.sys.entity.limits;
 
-import com.google.common.base.Joiner;
+import java.util.ArrayList;
+import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Map;
+import com.google.common.base.Joiner;
 
 public class BlocksBelow extends VerticalBlockComparer {
 	public ArrayList<int[]> blocks = new ArrayList<int[]>();

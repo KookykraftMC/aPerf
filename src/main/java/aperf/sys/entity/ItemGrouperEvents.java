@@ -3,15 +3,16 @@ package aperf.sys.entity;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
 
-public class ItemGrouperEvents implements ITickHandler {
+public class ItemGrouperEvents {
 	ItemGrouperModule parent;
 	int ticks = 0;
 
@@ -19,12 +20,12 @@ public class ItemGrouperEvents implements ITickHandler {
 		this.parent = parent;
 	}
 
-	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-	}
+	@SubscribeEvent
+	public void tickEnd(TickEvent.WorldTickEvent event) {
+		if (event.phase != TickEvent.Phase.END || event.side != Side.SERVER) {
+			return;
+		}
 
-	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		if (!parent.isEnabled()) {
 			return;
 		}
@@ -34,7 +35,7 @@ public class ItemGrouperEvents implements ITickHandler {
 			return;
 		}
 
-		World w = (World) tickData[0];
+		World w = event.world;
 		ArrayList<Entity> toRemove = new ArrayList<Entity>();
 		ArrayList<Entity> toAdd = new ArrayList<Entity>();
 
@@ -54,16 +55,7 @@ public class ItemGrouperEvents implements ITickHandler {
 			w.spawnEntityInWorld(e);
 		}
 
-		ticks = MinecraftServer.getServer().worldServers.length * parent.skipForTicks;
-	}
-
-	@Override
-	public EnumSet<TickType> ticks() {
-		return EnumSet.of(TickType.WORLD);
-	}
-
-	@Override
-	public String getLabel() {
-		return "aPerf ItemGrouper Module event handler";
+		ticks = MinecraftServer.getServer().worldServers.length
+				* parent.skipForTicks;
 	}
 }

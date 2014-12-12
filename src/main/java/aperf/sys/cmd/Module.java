@@ -46,14 +46,14 @@ public class Module extends BaseCommand {
 
 		if (module == null) {
 			msg(sender, "Module not found", EnumChatFormatting.RED);
-		} else if (module.getName() == "PacketLimiter") {
-			try {
-				net.minecraft.network.TcpConnection.class.getMethod("getPacketHandlers");
-			} catch (NoSuchMethodException e) {
-				msg(sender, "Packet Limiter is disabled. Please tell your server admin.", EnumChatFormatting.RED);
-			} catch (SecurityException e) {
-				msg(sender, "Packet Limiter is disabled. Please tell your server admin.", EnumChatFormatting.RED);
-			}
+//		} else if (module.getName() == "PacketLimiter") {
+//			try {
+//				net.minecraft.network.TcpConnection.class.getMethod("getPacketHandlers");
+//			} catch (NoSuchMethodException e) {
+//				msg(sender, "Packet Limiter is disabled. Please tell your server admin.", EnumChatFormatting.RED);
+//			} catch (SecurityException e) {
+//				msg(sender, "Packet Limiter is disabled. Please tell your server admin.", EnumChatFormatting.RED);
+//			}
 		} else {
 			aPerf.instance.setAutoLoad(module, turnEnabled);
 

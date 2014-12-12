@@ -1,8 +1,8 @@
 package aperf.sys.entity.limits;
 
-import net.minecraft.block.BlockLiquid;
-
 import java.util.Map;
+
+import net.minecraft.block.BlockLiquid;
 
 public class WaterAbove extends VerticalBlockComparer {
 	public WaterAbove() {

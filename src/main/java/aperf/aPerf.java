@@ -1,5 +1,14 @@
 package aperf;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+
+import net.minecraft.command.ServerCommandManager;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.logging.log4j.Level;
+
 import aperf.commands.BaseCommand;
 import aperf.commands.CmdPerf;
 import aperf.commands.CommandsManager;
@@ -9,7 +18,6 @@ import aperf.sys.entity.EntityModule;
 import aperf.sys.entity.EntitySafeListModule;
 import aperf.sys.entity.ItemGrouperModule;
 import aperf.sys.entity.SpawnLimiterModule;
-import aperf.sys.packet.PacketManagerModule;
 import aperf.sys.tile.TileEntityModule;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
@@ -21,13 +29,6 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import forgeperms.api.IChatManager;
 import forgeperms.api.IEconomyManager;
 import forgeperms.api.IPermissionManager;
-import net.minecraft.command.ServerCommandManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.common.config.Configuration;
-import org.apache.logging.log4j.Level;
-
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 
 @Mod(modid = "aPerf", name = "aPerf", version = "@VERSION@.@BUILD_NUMBER@")
 //@NetworkMod(clientSideRequired = false, serverSideRequired = true)
@@ -36,7 +37,7 @@ public class aPerf {
 	public File configFile;
 	public Configuration config;
 	public CommandsManager commandsManager = new CommandsManager(this);
-	public ModuleBase[] modules = new ModuleBase[] { GeneralModule.instance, EntityModule.instance, EntitySafeListModule.instance, TileEntityModule.instance, SpawnLimiterModule.instance, ItemGrouperModule.instance, PacketManagerModule.Instance };
+	public ModuleBase[] modules = new ModuleBase[] { GeneralModule.instance, EntityModule.instance, EntitySafeListModule.instance, TileEntityModule.instance, SpawnLimiterModule.instance, ItemGrouperModule.instance };
 
 	public IPermissionManager permManager;
 	public IChatManager chatManager;

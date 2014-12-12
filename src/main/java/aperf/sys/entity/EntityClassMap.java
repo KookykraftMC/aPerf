@@ -18,7 +18,6 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityEnderEye;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.item.EntityExpBottle;
-import net.minecraft.entity.item.EntityFallingSand;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
@@ -127,7 +126,7 @@ public class EntityClassMap extends HashSet<EntityClassMapEntry<Class<? extends 
 		put(EntityItem.class, "net.minecraft.entity.item", "EntityItem");
 		put(EntityEnderCrystal.class, "net.minecraft.entity.item", "EntityEnderCrystal");
 		put(EntityBoat.class, "net.minecraft.entity.item", "EntityBoat");
-		put(EntityFallingSand.class, "net.minecraft.entity.item", "EntityFallingSand");
+//		put(EntityFallingSand.class, "net.minecraft.entity.item", "EntityFallingSand");
 		put(EntityMinecart.class, "net.minecraft.entity.item", "EntityMinecart");
 		put(EntityTNTPrimed.class, "net.minecraft.entity.item", "EntityTNTPrimed");
 		put(EntityEnderPearl.class, "net.minecraft.entity.item", "EntityEnderPearl");

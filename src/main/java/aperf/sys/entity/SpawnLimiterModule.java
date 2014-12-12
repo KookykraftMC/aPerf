@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ChunkProviderServer;
-import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Property;
 import aperf.aPerf;
 import aperf.sys.ModuleBase;
@@ -84,10 +84,7 @@ public class SpawnLimiterModule extends ModuleBase {
 		int i = 1;
 		for (SpawnLimit limit : limits) {
 			String name = String.format("Limit-%d", i++);
-			Property prop = new Property();
-
-			prop.set(limit.serialize());
-			prop.setName(name);
+			Property prop = new Property(name, limit.serialize(), Property.Type.STRING);
 
 			props.put(name, prop);
 		}

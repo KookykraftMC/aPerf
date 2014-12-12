@@ -1,12 +1,12 @@
 package aperf.commands;
 
-import aperf.aPerf;
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
-
-import java.util.Arrays;
-import java.util.List;
+import aperf.aPerf;
 
 public class CmdPerf extends CommandBase {
 	@Override

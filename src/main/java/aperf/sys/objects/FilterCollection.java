@@ -1,11 +1,11 @@
 package aperf.sys.objects;
 
-import aperf.sys.entity.EntityHelper;
-import aperf.sys.tile.TileEntityHelper;
+import java.util.ArrayList;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-
-import java.util.ArrayList;
+import aperf.sys.entity.EntityHelper;
+import aperf.sys.tile.TileEntityHelper;
 
 public class FilterCollection extends ArrayList<Filter> {
 	/**

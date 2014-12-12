@@ -1,19 +1,24 @@
 package aperf.commands;
 
-import aperf.Log;
-import aperf.aPerf;
-import com.google.common.base.Joiner;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import aperf.Log;
+import aperf.aPerf;
 
-import java.lang.reflect.Method;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.google.common.base.Joiner;
 
 public class CommandsManager {
 	protected Map<String, Map<CommandSyntax, CommandBinding>> listeners = new LinkedHashMap<String, Map<CommandSyntax, CommandBinding>>();

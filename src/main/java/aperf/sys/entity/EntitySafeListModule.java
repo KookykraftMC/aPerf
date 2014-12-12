@@ -59,10 +59,7 @@ public class EntitySafeListModule extends ModuleBase {
 		int i = 1;
 		for (Filter filter : safeList) {
 			String name = String.format("Filter-%d", i++);
-			Property prop = new Property();
-
-			prop.set(filter.serialize());
-			prop.setName(name);
+			Property prop = new Property(name, filter.serialize(), Property.Type.STRING);
 
 			props.put(name, prop);
 		}

@@ -43,12 +43,12 @@ public class EntityHelper {
 	}
 
 	public static String getEntityName(Entity e) {
-		String n = e.getEntityName();
-		if (n.startsWith("entity.") && n.endsWith(".name")) {
+//		String n = e.getEntityString();
+//		if (n.startsWith("entity.") && n.endsWith(".name")) {
 			return EntityList.getEntityString(e);
-		} else {
-			return n;
-		}
+//		} else {
+//			return n;
+//		}
 	}
 
 	public static String getEntityClass(Entity e) {

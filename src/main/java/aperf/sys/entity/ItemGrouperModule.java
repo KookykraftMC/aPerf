@@ -1,15 +1,15 @@
 package aperf.sys.entity;
 
-import aperf.aPerf;
-import aperf.sys.ModuleBase;
-import cpw.mods.fml.common.FMLCommonHandler;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
+import aperf.aPerf;
+import aperf.sys.ModuleBase;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ItemGrouperModule extends ModuleBase {
 	public static ItemGrouperModule instance = new ItemGrouperModule();
