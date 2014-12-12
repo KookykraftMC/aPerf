@@ -1,14 +1,5 @@
 package aperf;
 
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-
-import net.minecraft.command.ServerCommandManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.common.config.Configuration;
-
-import org.apache.logging.log4j.Level;
-
 import aperf.commands.BaseCommand;
 import aperf.commands.CmdPerf;
 import aperf.commands.CommandsManager;
@@ -29,9 +20,16 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import forgeperms.api.IChatManager;
 import forgeperms.api.IEconomyManager;
 import forgeperms.api.IPermissionManager;
+import net.minecraft.command.ServerCommandManager;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.common.config.Configuration;
+import org.apache.logging.log4j.Level;
 
-@Mod(modid = "aPerf", name = "aPerf", version = "@VERSION@.@BUILD_NUMBER@")
-//@NetworkMod(clientSideRequired = false, serverSideRequired = true)
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+
+@Mod(modid = "aPerf", name = "aPerf", version = "@VERSION@.@BUILD_NUMBER@", acceptableRemoteVersions = "*")
+//@NetwnoorkMod(clientSideRequired = false, serverSideRequired = true)
 public class aPerf {
 	public static String MOD_NAME = "aPerf";
 	public File configFile;
