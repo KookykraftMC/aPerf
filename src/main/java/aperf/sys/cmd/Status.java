@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumChatFormatting;
@@ -45,9 +46,7 @@ public class Status extends BaseCommand {
 
 	@Command(name = "aperf", syntax = "(?:status|s) (?:forcedchunks|fc)", description = "Shows the forced chunks", permission = "aperf.cmd.status.forced")
 	public void forced(Object plugin, ICommandSender sender, Map<String, String> args) throws Exception {
-		Field compoundField = NBTTagCompound.class.getDeclaredFields()[0];
-		compoundField.setAccessible(true);
-
+		
 		msg(sender, "%s%s", EnumChatFormatting.DARK_GREEN, "Forge forced (chunkloaded) chunks");
 		msg(sender, "%s  Type, Mod id, Player, Entity, Mod data, Used of Total chunks", EnumChatFormatting.GREEN);
 		msg(sender, "%s----------------------------------", EnumChatFormatting.GRAY);
@@ -68,12 +67,11 @@ public class Status extends BaseCommand {
 			msg(sender, "%s%s [%d], %s tickets", EnumChatFormatting.GREEN, serv.provider.getDimensionName(), serv.provider.dimensionId, tickets.size());
 
 			for (Ticket ticket : tickets) {
-				Map<?, ?> values = (Map<?, ?>) compoundField.get(ticket.getModData());
+				NBTTagCompound modData = ticket.getModData();
 				ArrayList<String> vals = new ArrayList<String>();
-				for (Object ov : values.entrySet()) {
-					@SuppressWarnings("unchecked")
-					Entry<Object, Object> v = (Entry<Object, Object>) ov;
-					vals.add(String.format("%s:%s", v.getKey(), v.getValue()));
+				for (Object key: modData.func_150296_c()) {
+					NBTBase value = modData.getTag((String) key);
+					vals.add(String.format("%s:%s", key, value));
 				}
 
 				msg(sender, "%s  %s, %s, %s, %s, \"%s\" - %s of %s chunks", EnumChatFormatting.GOLD, ticket.getType(), ticket.getModId(), ticket.getPlayerName(), ticket.getEntity(), Joiner.on("|").join(vals), ticket.getChunkList().size(), ticket.getChunkListDepth());
