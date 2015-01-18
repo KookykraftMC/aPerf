@@ -2,7 +2,8 @@ package forgeperms.api;
 
 public interface IChatManager {
 	/**
-	 * Returns the name of the chat handler in use. Used in console output and debugging.
+	 * Returns the name of the chat handler in use. Used in console output and
+	 * debugging.
 	 * 
 	 * @return
 	 */

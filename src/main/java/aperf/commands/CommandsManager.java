@@ -16,9 +16,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import aperf.Log;
-import aperf.aPerf;
 
 import com.google.common.base.Joiner;
+
+import forgeperms.api.ForgePermsAPI;
 
 public class CommandsManager {
 	protected Map<String, Map<CommandSyntax, CommandBinding>> listeners = new LinkedHashMap<String, Map<CommandSyntax, CommandBinding>>();
@@ -230,7 +231,7 @@ public class CommandsManager {
 				}
 			}
 
-			return aPerf.instance.permManager.canAccess(player.getDisplayName(), player.worldObj.provider.getDimensionName(), permission);
+			return ForgePermsAPI.permManager.canAccess(player.getDisplayName(), player.worldObj.provider.getDimensionName(), permission);
 		}
 
 		public void call(Object... args) throws Exception {

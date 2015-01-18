@@ -14,7 +14,8 @@ public interface IPermissionManager {
 	public String getName();
 
 	/**
-	 * Loads the PermissionHandler, typically used to check if the Permission Manager is there and register anything with the manager
+	 * Loads the PermissionHandler, typically used to check if the Permission
+	 * Manager is there and register anything with the manager
 	 * 
 	 * @return
 	 */
@@ -35,7 +36,7 @@ public interface IPermissionManager {
 	 * @param node
 	 * @return
 	 */
-	public boolean canAccess(String name, String world, String node);
+	public boolean canAccess(String player, String world, String node);
 
 	public boolean addGroup(String player, String group);
 

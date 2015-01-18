@@ -1,5 +1,13 @@
 package aperf;
 
+import java.io.File;
+
+import net.minecraft.command.ServerCommandManager;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.logging.log4j.Level;
+
 import aperf.commands.BaseCommand;
 import aperf.commands.CmdPerf;
 import aperf.commands.CommandsManager;
@@ -17,16 +25,6 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
-import forgeperms.api.IChatManager;
-import forgeperms.api.IEconomyManager;
-import forgeperms.api.IPermissionManager;
-import net.minecraft.command.ServerCommandManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.common.config.Configuration;
-import org.apache.logging.log4j.Level;
-
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 
 @Mod(modid = "aPerf", name = "aPerf", version = "@VERSION@.@BUILD_NUMBER@", acceptableRemoteVersions = "*")
 //@NetwnoorkMod(clientSideRequired = false, serverSideRequired = true)
@@ -37,27 +35,8 @@ public class aPerf {
 	public CommandsManager commandsManager = new CommandsManager(this);
 	public ModuleBase[] modules = new ModuleBase[] { GeneralModule.instance, EntityModule.instance, EntitySafeListModule.instance, TileEntityModule.instance, SpawnLimiterModule.instance, ItemGrouperModule.instance };
 
-	public IPermissionManager permManager;
-	public IChatManager chatManager;
-	public IEconomyManager economyManager;
-
 	@Instance("aPerf")
 	public static aPerf instance;
-
-	public void initPermManager() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		Class<?> forgePerms = Class.forName("forgeperms.ForgePerms");
-		permManager = (IPermissionManager) forgePerms.getMethod("getPermissionManager").invoke(null);
-	}
-
-	public void initChatManager() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		Class<?> forgePerms = Class.forName("forgeperms.ForgePerms");
-		chatManager = (IChatManager) forgePerms.getMethod("getChatManager").invoke(null);
-	}
-
-	public void initEcoManager() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-		Class<?> forgePerms = Class.forName("forgeperms.ForgePerms");
-		economyManager = (IEconomyManager) forgePerms.getMethod("getEconomyManager").invoke(null);
-	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent ev) {
@@ -70,22 +49,6 @@ public class aPerf {
 
 	@EventHandler
 	public void modsLoaded(FMLServerStartedEvent var1) {
-		try {
-			initPermManager();
-			initChatManager();
-			initEcoManager();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
 		reload();
 
 		for (ModuleBase m : modules) {
